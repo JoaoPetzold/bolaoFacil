@@ -1,0 +1,26 @@
+aside.logo {
+    background-color: var(--bg-dark);
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 1.35em;
+    color: #005779;
+    z-index: 99;
+}
+
+aside.logo img {
+    padding: 8px 8px 8px 8px;
+    width: var(--logo-width);
+}
+
+@media(max-width: 576px) {
+    aside.logo {
+        height: var(--logo-height);
+        margin: 0px;
+    }
+    aside.logo img {
+        width: var(--logo-widht);
+        height: var(--logo-height);
+        margin: 0px;
+    }
+}
