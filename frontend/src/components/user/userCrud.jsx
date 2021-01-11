@@ -1,5 +1,10 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import moment from 'moment';
+
+import DatePicker from "react-datepicker"
+
+import "react-datepicker/dist/react-datepicker.css";
 
 import Main from '../template/main'
 
@@ -11,13 +16,12 @@ const headerProps = {
 
 const baseUrl = 'http://localhost:3001/users'
 const initialState = {
-    user: { name: '', email: ''},
+    user: { name: '', email: '', cpf: '', celular: '', situacao: 'S', dtVerificacao: moment().format('DD/MM/YYYY')},
     list: [],
     visibleRegister: false,
 }
 
 export default class userCrud extends Component {
-
 
     state = {...initialState}
 
@@ -47,6 +51,11 @@ export default class userCrud extends Component {
         return list
     }
 
+    handleChange(date) {
+        const user = {...this.state.user, dtVerificacao: moment(date).format('DD/MM/YYYY')}
+        this.setState({ user })
+    }
+
     updateField(event) {
         const user = {...this.state.user}
         user[event.target.name] = event.target.value
@@ -68,6 +77,36 @@ export default class userCrud extends Component {
                             <label>E-Mail</label> 
                             <input type="text" className="form-control" name="email" value={this.state.user.email} onChange={e => this.updateField(e)} placeholder="Digite o email..."></input>   
                         </div>    
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col-12 col-md-3">
+                        <div className="form-group">
+                            <label>Registro</label>    
+                            <input type="text" className="form-control" name="cpf" value={this.state.user.cpf} onChange={e => this.updateField(e)} placeholder="Digite o CPF..."></input>   
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-3">
+                        <div className="form-group">
+                            <label>Contato</label>    
+                            <input type="text" className="form-control" name="phone" value={this.state.user.celular} onChange={e => this.updateField(e)} placeholder="Digite o Celular..."></input>   
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-3">
+                        <div className="form-group">
+                            <label for="inputState">Situação</label>
+                            <select id="inputState" className="form-control" name="situacao" value={this.state.user.situacao} onChange={e => this.updateField(e)}>
+                                <option value="S" selected>Habilitado</option>
+                                <option value="N">Desabilitado</option>
+                                <option value="X">Excluído</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-3">
+                        <div className="form-group">
+                            <label>Data de Verificação</label> <br></br> 
+                            <DatePicker className="form-control" value={this.state.user.dtVerificacao} onChange={(date) => this.handleChange(date)} ></DatePicker>
+                        </div>
                     </div>
                 </div>
                 <hr></hr>
