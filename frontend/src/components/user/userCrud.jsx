@@ -16,7 +16,7 @@ const headerProps = {
 
 const baseUrl = 'http://localhost:3001/users'
 const initialState = {
-    user: { name: '', email: '', cpf: '', celular: '', situacao: 'S', dtVerificacao: moment().format('DD/MM/YYYY')},
+    user: { name: '', email: '', registro: '', celular: '', situacao: 'S', dtVerificacao: moment().format('DD/MM/YYYY')},
     list: [],
     visibleRegister: false,
 }
@@ -83,7 +83,7 @@ export default class userCrud extends Component {
                     <div className="col-12 col-md-3">
                         <div className="form-group">
                             <label>Registro</label>    
-                            <input type="text" className="form-control" name="cpf" value={this.state.user.cpf} onChange={e => this.updateField(e)} placeholder="Digite o CPF..."></input>   
+                            <input type="text" className="form-control" name="cpf" value={this.state.user.registro} onChange={e => this.updateField(e)} placeholder="Digite o CPF..."></input>   
                         </div>
                     </div>
                     <div className="col-12 col-md-3">
@@ -96,7 +96,7 @@ export default class userCrud extends Component {
                         <div className="form-group">
                             <label for="inputState">Situação</label>
                             <select id="inputState" className="form-control" name="situacao" value={this.state.user.situacao} onChange={e => this.updateField(e)}>
-                                <option value="S" selected>Habilitado</option>
+                                <option value="S">Habilitado</option>
                                 <option value="N">Desabilitado</option>
                                 <option value="X">Excluído</option>
                             </select>
@@ -164,6 +164,10 @@ export default class userCrud extends Component {
                         <th>Id</th>
                         <th>Nome</th>
                         <th>E-Mail</th>
+                        <th>Registro</th>
+                        <th>Contato</th>
+                        <th>Situação</th>
+                        <th>Data</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -181,13 +185,17 @@ export default class userCrud extends Component {
                    <td>{user.id}</td>
                    <td>{user.name}</td>
                    <td>{user.email}</td>
+                   <td>{user.registro}</td>
+                   <td>{user.celular}</td>
+                   <td>{user.situacao}</td>
+                   <td>{user.dtVerificacao}</td>
                    <td>
                        <button className="btn btn-warning" onClick={() => this.load(user)}>
                            <i className="fa fa-pencil"></i>
                        </button>
-                       <button className="btn btn-danger ml-2" onClick={() => this.remove(user)}>
+                       {/* <button className="btn btn-danger ml-2" onClick={() => this.remove(user)}>
                             <i className="fa fa-trash"></i>
-                       </button>
+                       </button> */}
                    </td>
                </tr> 
             )
